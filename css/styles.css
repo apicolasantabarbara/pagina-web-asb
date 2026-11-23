@@ -564,7 +564,7 @@ a { color: inherit; }
 .section-sub { color: var(--muted); margin-top: 12px; max-width: 620px; }
 
 /* Escena 3D — mapa acostado en horizontal */
-.map3d-wrap { text-align: center; }
+.map3d-wrap { text-align: center; position: relative; z-index: 5; }
 .map3d-scene {
   position: relative;
   height: 195px;
