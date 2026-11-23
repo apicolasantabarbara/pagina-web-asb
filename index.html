@@ -351,12 +351,21 @@
         <p class="section-sub" data-i18n="dist.sub">Nuestra miel fraccionada llega a más de 50 puntos de venta entre Iquique y Puerto Montt, y también a todo Chile vía online.</p>
       </div>
 
+      <!-- Selector de región (visible en pantallas chicas) -->
+      <div class="region-select-row">
+        <select class="region-select" id="regionSelect" aria-label="Selecciona tu región"></select>
+      </div>
+
       <!-- Mapa 3D horizontal de Chile con límites regionales -->
       <div class="map3d-wrap reveal">
         <div class="map3d-scene">
           <div class="bee-sign">
-            <div class="bee-bubble"><span data-i18n="dist.hint">¡Selecciona tu región!</span></div>
             <img class="bee" src="assets/img/abejita.png" alt="" aria-hidden="true">
+            <button class="bee-bubble" type="button" id="regionMenuBtn" aria-haspopup="listbox" aria-expanded="false">
+              <span data-i18n="dist.hint">¡Selecciona tu región!</span>
+              <svg class="bee-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <div class="region-menu" id="regionMenu" role="listbox"></div>
           </div>
           <div class="map3d-tilt" id="mapTilt">
             <div class="map3d-top" id="chileMap"></div>

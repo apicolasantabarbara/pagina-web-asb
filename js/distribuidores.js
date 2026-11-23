@@ -110,6 +110,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let tipEl = null;
   let currentRegion = null;
 
+  // Orden de las regiones de norte a sur (para el menú y el select)
+  const REGION_ORDER = ["arica","tarapaca","antofagasta","atacama","coquimbo",
+    "valparaiso","metropolitana","ohiggins","maule","nuble","biobio",
+    "araucania","losrios","loslagos","aysen","magallanes"];
+
+  const menuBtn = document.getElementById("regionMenuBtn");
+  const menuEl = document.getElementById("regionMenu");
+  const selectEl = document.getElementById("regionSelect");
+  const beeSign = document.querySelector(".bee-sign");
+
   fetch("assets/chile.svg")
     .then(r => r.text())
     .then(text => {
@@ -139,9 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const PALETA = ["#e8a13a", "#2e8f8a", "#d9534f", "#8a6f4d",
                       "#c9a227", "#3f7d8c", "#a04b3a", "#6b8f3f"];
 
-      // Las 5 regiones más pequeñas se agrandan un 25% alrededor
+      // Las 5 regiones más pequeñas se agrandan alrededor
       // de su propio centro para que sean fáciles de pinchar
-      const PEQUENAS = { nuble: 1.25, metropolitana: 1.3, ohiggins: 1.25, valparaiso: 1.25, arica: 1.25 };
+      const PEQUENAS = { nuble: 1.45, metropolitana: 1.5, ohiggins: 1.45, valparaiso: 1.45, arica: 1.45 };
 
       // Preparar regiones
       let ci = 0;
@@ -218,10 +228,69 @@ document.addEventListener("DOMContentLoaded", () => {
     return (dict && dict["region." + rid]) || rid;
   }
 
+  // Menú desplegable de regiones (clic en el letrero de la abejita)
+  function renderRegionOptions() {
+    const dict = (typeof i18n !== "undefined") ? i18n[lang()] : null;
+    if (menuEl) {
+      menuEl.innerHTML = "";
+      REGION_ORDER.forEach(rid => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "region-opt" + (rid === currentRegion ? " active" : "");
+        b.setAttribute("role", "option");
+        b.dataset.region = rid;
+        b.textContent = regionName(rid);
+        b.addEventListener("click", e => {
+          e.stopPropagation();
+          selectRegion(rid);
+          closeMenu();
+        });
+        menuEl.appendChild(b);
+      });
+    }
+    if (selectEl) {
+      selectEl.innerHTML = "";
+      const ph = document.createElement("option");
+      ph.value = "";
+      ph.disabled = true;
+      ph.selected = !currentRegion;
+      ph.textContent = (dict && dict["dist.hint"]) || "¡Selecciona tu región!";
+      selectEl.appendChild(ph);
+      REGION_ORDER.forEach(rid => {
+        const o = document.createElement("option");
+        o.value = rid;
+        o.textContent = regionName(rid);
+        if (rid === currentRegion) o.selected = true;
+        selectEl.appendChild(o);
+      });
+    }
+  }
+
+  function closeMenu() {
+    if (!beeSign) return;
+    beeSign.classList.remove("menu-open");
+    if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+  }
+  if (menuBtn && beeSign) {
+    menuBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      renderRegionOptions();
+      const open = beeSign.classList.toggle("menu-open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  if (selectEl) {
+    selectEl.addEventListener("change", () => {
+      if (selectEl.value) selectRegion(selectEl.value);
+    });
+  }
+  renderRegionOptions();
+
   // Clic fuera de regiones/logos/ficha → el mapa vuelve a cero
   function resetMap() {
-    if (!svgEl) return;
     currentRegion = null;
+    if (selectEl) selectEl.value = "";
+    if (!svgEl) return;
     svgEl.querySelectorAll(".region.active").forEach(p => p.classList.remove("active"));
     if (pinEl) { pinEl.remove(); pinEl = null; }
     const scene = document.querySelector(".map3d-scene");
@@ -230,8 +299,11 @@ document.addEventListener("DOMContentLoaded", () => {
     infoWrap.innerHTML = "";
   }
   document.addEventListener("click", e => {
+    if (!e.target.closest(".bee-sign")) closeMenu();
     if (!currentRegion) return;
     if (e.target.closest(".region") ||
+        e.target.closest(".bee-sign") ||
+        e.target.closest(".region-select-row") ||
         e.target.closest(".dist-dock") ||
         e.target.closest(".dist-float")) return;
     resetMap();
@@ -239,6 +311,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function selectRegion(rid) {
     currentRegion = rid;
+    if (selectEl) selectEl.value = rid;
+    if (menuEl) menuEl.querySelectorAll(".region-opt").forEach(b =>
+      b.classList.toggle("active", b.dataset.region === rid));
     if (svgEl) {
       svgEl.querySelectorAll(".region").forEach(p =>
         p.classList.toggle("active", p.dataset.region === rid));
@@ -333,6 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("asb:langchange", () => {
+    renderRegionOptions();
     if (currentRegion) renderLogos(currentRegion);
   });
 });
