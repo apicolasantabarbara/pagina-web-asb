@@ -399,13 +399,14 @@ document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10) || 0;
-  if (prefersReduced) { el.textContent = target; return; }
+  const fmt = n => n.toLocaleString("es-CL");
+  if (prefersReduced) { el.textContent = fmt(target); return; }
   const duration = 1400;
   const start = performance.now();
   const step = now => {
     const p = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(target * eased);
+    el.textContent = fmt(Math.round(target * eased));
     if (p < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
