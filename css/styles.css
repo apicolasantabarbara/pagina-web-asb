@@ -443,7 +443,19 @@ a { color: inherit; }
   border-radius: var(--radius);
   padding: 18px 20px;
 }
-.route-flag { font-size: 1.9rem; line-height: 1; }
+.route-flag {
+  width: 52px;
+  flex-shrink: 0;
+  align-self: center;
+}
+.route-flag img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+  box-shadow: 0 4px 14px -3px rgba(0, 0, 0, .5);
+  outline: 1px solid rgba(250, 244, 232, .2);
+}
 .route-info { flex: 1; }
 .route-info h3 { font-size: 1.25rem; margin-bottom: 6px; }
 .route-info p { font-size: .9rem; color: rgba(250, 244, 232, .72); }
