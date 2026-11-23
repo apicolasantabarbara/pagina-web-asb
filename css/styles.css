@@ -363,6 +363,12 @@ a { color: inherit; }
   background: rgba(232, 161, 58, .09);
   border-color: rgba(232, 161, 58, .35);
 }
+.product-jars {
+  float: right;
+  width: 158px;
+  margin: 0 0 10px 16px;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .5));
+}
 .product-icon {
   width: 42px; height: 42px;
   color: var(--amber);
@@ -1388,6 +1394,7 @@ a { color: inherit; }
   .dock-btn svg { width: 16px; height: 16px; }
   .hero-content { padding-right: 48px; }
   .bee-sign { display: none; }
+  .product-jars { width: 112px; margin-left: 10px; }
 }
 @media (max-width: 720px) {
   .hero-logo { top: 70px; }
