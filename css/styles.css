@@ -571,7 +571,45 @@ a { color: inherit; }
 .dock-fb   { background: #1877f2; }
 .dock-ig   { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 .dock-tel  { background: var(--forest); }
-.dock-mail { background: var(--amber-deep); }
+.dock-mail { background: var(--amber-deep); border: 0; cursor: pointer; }
+
+.dock-mail-wrap { position: relative; }
+.dock-mail-menu {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%) scale(.9);
+  transform-origin: right center;
+  min-width: 190px;
+  background: var(--forest);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 18px 40px -10px rgba(20, 30, 18, .55);
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 95;
+}
+.dock-mail-menu.open { display: flex; animation: mailPop .18s ease-out; }
+@keyframes mailPop { from { opacity: 0; transform: translateY(-50%) scale(.9); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
+.dock-mail-menu a,
+.dock-mail-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 0;
+  background: transparent;
+  color: var(--cream);
+  font: 600 .92rem var(--font-body, 'Sora', sans-serif);
+  font-family: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s;
+}
+.dock-mail-menu a:hover,
+.dock-mail-menu button:hover { background: rgba(255,255,255,.12); color: var(--amber); }
 
 /* ---------- BUSCADOR DE MIEL (mapa 3D + distribuidores) ---------- */
 .section-sub { color: var(--muted); margin-top: 12px; max-width: 620px; }
@@ -1335,9 +1373,9 @@ a { color: inherit; }
   .hero-logo-asb { height: 62px; width: 62px; left: 14px; }
   .hero-logo-sss { height: 52px; right: 14px; }
   .hero-tag { margin-top: 36px; }
-  /* Pendones: un poco más anchos y texto con más aire */
-  .company-card { gap: 10px; }
-  .company-pendon { width: 118px; }
+  /* Pendones: se ven completos (sin recorte) y más anchos */
+  .company-card { gap: 12px; }
+  .company-pendon { width: 136px; object-fit: contain; object-position: center; }
   .company-body { padding: 16px 12px 16px 0; }
   .company-card-dark .company-body { padding: 16px 0 16px 12px; }
 }

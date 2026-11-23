@@ -12,6 +12,9 @@ const i18n = {
     "nav.gallery": "Galería",
     "nav.buy": "Dónde comprar",
     "nav.contact": "Contacto",
+    "dock.mail.app": "App de correo",
+    "dock.mail.copy": "Copiar correo",
+    "dock.mail.copied": "¡Copiado!",
     "hero.tag": "Exportadora apícola · Santa Bárbara, Biobío, Chile",
     "hero.title": "Miel chilena de origen puro,<br><em>del Biobío al mundo.</em>",
     "hero.sub": "Exportamos miel premium a granel a la Unión Europea y material genético apícola de excelencia. Próximo destino: nuestras reinas y paquetes de abejas a Canadá.",
@@ -190,6 +193,9 @@ const i18n = {
     "nav.gallery": "Gallery",
     "nav.buy": "Where to buy",
     "nav.contact": "Contact",
+    "dock.mail.app": "Mail app",
+    "dock.mail.copy": "Copy email",
+    "dock.mail.copied": "Copied!",
     "hero.tag": "Beekeeping exporter · Santa Bárbara, Biobío, Chile",
     "hero.title": "Pure-origin Chilean honey,<br><em>from Biobío to the world.</em>",
     "hero.sub": "We export premium bulk honey to the European Union and excellent bee genetic material. Next destination: our queen bees and bee packages to Canada.",
@@ -454,6 +460,37 @@ document.addEventListener("click", e => {
 navLinks.querySelectorAll("a").forEach(a =>
   a.addEventListener("click", closeMobileMenu)
 );
+
+/* ---------- Dock mail popover ---------- */
+const mailBtn = document.getElementById("mailDockBtn");
+const mailMenu = document.getElementById("dockMailMenu");
+const mailCopy = document.getElementById("dockMailCopy");
+function closeMailMenu() {
+  mailMenu.classList.remove("open");
+  mailBtn.setAttribute("aria-expanded", "false");
+}
+mailBtn.addEventListener("click", e => {
+  e.stopPropagation();
+  const open = mailMenu.classList.toggle("open");
+  mailBtn.setAttribute("aria-expanded", String(open));
+});
+mailMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMailMenu));
+mailCopy.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText("contacto@apicolasantabarbaraspa.cl"); } catch (e) {}
+  const dict = i18n[document.documentElement.lang || "es"];
+  const original = mailCopy.dataset.i18n;
+  mailCopy.dataset.i18n = "dock.mail.copied";
+  mailCopy.textContent = dict["dock.mail.copied"];
+  setTimeout(() => {
+    mailCopy.dataset.i18n = original;
+    mailCopy.textContent = dict[original];
+    closeMailMenu();
+  }, 1200);
+});
+document.addEventListener("click", e => {
+  if (mailMenu.classList.contains("open") && !e.target.closest(".dock-mail-wrap")) closeMailMenu();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMailMenu(); });
 
 /* ---------- Reveal on scroll + counters ---------- */
 const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
