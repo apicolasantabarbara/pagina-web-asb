@@ -434,15 +434,25 @@ window.addEventListener("load", () => {
 /* ---------- Mobile menu ---------- */
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
+const navOverlay = document.getElementById("navOverlay");
+function closeMobileMenu() {
+  hamburger.classList.remove("open");
+  navLinks.classList.remove("open");
+  navOverlay.classList.remove("show");
+}
 hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("open");
-  navLinks.classList.toggle("open");
+  const open = navLinks.classList.toggle("open");
+  hamburger.classList.toggle("open", open);
+  navOverlay.classList.toggle("show", open);
+});
+navOverlay.addEventListener("click", closeMobileMenu);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMobileMenu(); });
+document.addEventListener("click", e => {
+  if (!navLinks.classList.contains("open")) return;
+  if (!e.target.closest(".nav-links") && !e.target.closest(".hamburger")) closeMobileMenu();
 });
 navLinks.querySelectorAll("a").forEach(a =>
-  a.addEventListener("click", () => {
-    hamburger.classList.remove("open");
-    navLinks.classList.remove("open");
-  })
+  a.addEventListener("click", closeMobileMenu)
 );
 
 /* ---------- Reveal on scroll + counters ---------- */
