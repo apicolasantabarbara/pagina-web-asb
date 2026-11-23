@@ -1273,10 +1273,19 @@ a { color: inherit; }
 .honey-tag {
   font-size: .72rem;
   font-weight: 600;
+  font-family: inherit;
   padding: 4px 12px;
   border-radius: 100px;
   border: 1px solid rgba(232,161,58,.5);
+  background: transparent;
   color: var(--honey-soft);
+  cursor: pointer;
+  transition: background .18s, color .18s, transform .18s;
+}
+.honey-tag:hover {
+  background: var(--amber);
+  color: var(--forest-2);
+  transform: translateY(-1px);
 }
 
 /* ---------- RESPONSIVE: empresas + galería ---------- */

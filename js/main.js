@@ -581,7 +581,7 @@ const floraModalSci = document.getElementById("floraModalSci");
 const floraModalDesc = document.getElementById("floraModalDesc");
 const floraModalTraits = document.getElementById("floraModalTraits");
 
-document.querySelectorAll(".flora-btn").forEach(btn => {
+document.querySelectorAll(".flora-btn, .honey-tag[data-flora]").forEach(btn => {
   btn.addEventListener("click", () => {
     const id = btn.dataset.flora;
     const dict = i18n[document.documentElement.lang || "es"];
