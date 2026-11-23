@@ -862,7 +862,17 @@ a { color: inherit; }
 .map-tip.show { opacity: 1; }
 
 /* Sección Dónde comprar: más compacta para caber en pantalla */
-#donde-comprar { padding-top: 14px; padding-bottom: 20px; }
+#donde-comprar { padding-top: 14px; padding-bottom: 20px; position: relative; }
+.section-jar {
+  position: absolute;
+  left: clamp(14px, 4.5vw, 90px);
+  top: 26px;
+  width: clamp(95px, 9vw, 140px);
+  filter: drop-shadow(0 14px 22px rgba(60, 45, 20, .35));
+  pointer-events: none;
+  z-index: 3;
+}
+@media (max-width: 960px) { .section-jar { display: none; } }
 #donde-comprar .section-head { margin-bottom: 6px; }
 #donde-comprar .section-sub { margin-top: 6px; }
 #donde-comprar .retail-grid { margin-top: 12px; }
