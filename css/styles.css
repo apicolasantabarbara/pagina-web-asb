@@ -1213,3 +1213,17 @@ a { color: inherit; }
   font-size: clamp(2.4rem, 4.6vw, 3.4rem);
   color: var(--amber-deep);
 }
+
+/* ---------- MÓVIL: dock compacto y hero despejado ---------- */
+@media (max-width: 720px) {
+  .social-dock { right: 8px; gap: 7px; }
+  .dock-btn { width: 36px; height: 33px; }
+  .dock-btn svg { width: 16px; height: 16px; }
+  .hero-content { padding-right: 48px; }
+  .bee-sign { display: none; }
+}
+@media (max-width: 720px) {
+  .hero-logo { top: 76px; }
+  .hero-logo-asb { height: 70px; width: 70px; left: 14px; }
+  .hero-logo-sss { height: 58px; right: 14px; }
+}
