@@ -313,12 +313,25 @@ a { color: inherit; }
 .flora-card h3 { font-size: 1.3rem; margin-bottom: 4px; }
 .flora-sub { font-size: .85rem; color: var(--muted); margin-bottom: 16px; }
 .flora-list { list-style: none; margin-bottom: 16px; }
-.flora-list li {
+.flora-btn {
   display: flex; align-items: baseline; gap: 12px;
-  padding: 5px 0;
+  width: 100%;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border: none;
   border-bottom: 1px dashed rgba(42, 33, 24, .12);
+  border-radius: 8px 8px 0 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background .18s, color .18s;
 }
+.flora-btn:hover { background: #fdf3dd; color: var(--amber-deep); }
+.flora-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
 .flora-list em { font-weight: 400; color: var(--muted); font-size: .85rem; }
 .flora-dot {
   width: 9px; height: 9px;
@@ -1300,4 +1313,92 @@ a { color: inherit; }
   .hero-logo { top: 76px; }
   .hero-logo-asb { height: 70px; width: 70px; left: 14px; }
   .hero-logo-sss { height: 58px; right: 14px; }
+}
+
+/* ---------- MODAL: variedad de miel ---------- */
+.flora-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(28, 22, 14, .72);
+  backdrop-filter: blur(6px);
+  animation: floraFade .25s ease;
+}
+@keyframes floraFade { from { opacity: 0; } }
+.flora-modal[hidden] { display: none; }
+.flora-modal-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 46%) 1fr;
+  width: min(860px, 100%);
+  max-height: min(560px, 88vh);
+  background: var(--white);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, .55);
+  animation: floraPop .3s cubic-bezier(.2, .9, .3, 1.2);
+}
+@keyframes floraPop {
+  from { transform: scale(.85) translateY(20px); opacity: 0; }
+}
+.flora-modal-img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+.flora-modal-body { padding: 34px 32px; overflow-y: auto; }
+.flora-modal-name {
+  font-family: var(--font-head);
+  font-size: 1.9rem;
+  color: var(--forest-2);
+  margin-bottom: 2px;
+}
+.flora-modal-sci {
+  font-style: italic;
+  color: var(--amber-deep);
+  font-size: .95rem;
+  margin-bottom: 16px;
+}
+.flora-modal-desc {
+  font-size: .98rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.flora-modal-traits { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.flora-modal-traits li {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--forest);
+  padding: 8px 14px;
+  background: #f4eee0;
+  border-left: 3px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+}
+.flora-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 36px; height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(28, 22, 14, .55);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.flora-modal-close:hover { background: var(--amber-deep); transform: scale(1.08); }
+@media (max-width: 640px) {
+  .flora-modal-card { grid-template-columns: 1fr; max-height: 88vh; }
+  .flora-modal-img { min-height: 0; height: 220px; }
+  .flora-modal-body { padding: 22px; }
 }

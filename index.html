@@ -121,14 +121,15 @@
         </div>
 
         <div class="flora-card reveal">
-          <h3 data-i18n="about.floraTitle">Nuestras mieles monoflorales</h3>
-          <p class="flora-sub" data-i18n="about.floraSub">Del bosque nativo chileno</p>
+          <h3 data-i18n="about.floraTitle">Nuestras mieles</h3>
+          <p class="flora-sub" data-i18n="about.floraSub">Del bosque nativo chileno — toca cada variedad</p>
           <ul class="flora-list">
-            <li><span class="flora-dot"></span>Ulmo <em>(Eucryphia cordifolia)</em></li>
-            <li><span class="flora-dot"></span>Tineo <em>(Weinmannia trichosperma)</em></li>
-            <li><span class="flora-dot"></span>Tiaca <em>(Caldcluvia paniculata)</em></li>
-            <li><span class="flora-dot"></span>Quillay <em>(Quillaja saponaria)</em></li>
-            <li><span class="flora-dot"></span>Avellano <em>(Gevuina avellana)</em></li>
+            <li><button type="button" class="flora-btn" data-flora="polifloral"><span class="flora-dot"></span>Miel polifloral <em data-i18n="flora.polifloral.sci">(varios orígenes florales)</em></button></li>
+            <li><button type="button" class="flora-btn" data-flora="ulmo"><span class="flora-dot"></span>Ulmo <em>(Eucryphia cordifolia)</em></button></li>
+            <li><button type="button" class="flora-btn" data-flora="tineo"><span class="flora-dot"></span>Tineo <em>(Weinmannia trichosperma)</em></button></li>
+            <li><button type="button" class="flora-btn" data-flora="tiaca"><span class="flora-dot"></span>Tiaca <em>(Caldcluvia paniculata)</em></button></li>
+            <li><button type="button" class="flora-btn" data-flora="quillay"><span class="flora-dot"></span>Quillay <em>(Quillaja saponaria)</em></button></li>
+            <li><button type="button" class="flora-btn" data-flora="avellano"><span class="flora-dot"></span>Avellano <em>(Gevuina avellana)</em></button></li>
           </ul>
           <p class="flora-note" data-i18n="about.floraNote">Cada variedad conserva el color, aroma, sabor y textura de su floración original.</p>
         </div>
@@ -210,10 +211,11 @@
           <ul class="product-specs">
             <li data-i18n="products.honey.s1">Supermercados, tiendas gourmet y negocios locales</li>
             <li data-i18n="products.honey.s2">Envíos directos a todo Chile y venta en Walmart.cl</li>
-            <li data-i18n="products.honey.s3">Mieles monoflorales: Ulmo, Tineo, Tiaca, Quillay, Avellano</li>
+            <li data-i18n="products.honey.s3">Miel polifloral y monoflorales: Ulmo, Tineo, Tiaca, Quillay, Avellano</li>
           </ul>
           <div class="honey-tags">
             <div class="honey-tags-inner">
+              <span class="honey-tag">Polifloral</span>
               <span class="honey-tag">Ulmo</span>
               <span class="honey-tag">Tineo</span>
               <span class="honey-tag">Tiaca</span>
@@ -340,6 +342,20 @@
     <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">×</button>
     <img class="lightbox-img" id="lightboxImg" alt="">
     <p class="lightbox-cap" id="lightboxCap"></p>
+  </div>
+
+  <!-- Modal de variedad de miel (foto + reseña) -->
+  <div class="flora-modal" id="floraModal" hidden>
+    <div class="flora-modal-card" role="dialog" aria-modal="true">
+      <button class="flora-modal-close" id="floraModalClose" aria-label="Cerrar">×</button>
+      <img class="flora-modal-img" id="floraModalImg" alt="">
+      <div class="flora-modal-body">
+        <h3 class="flora-modal-name" id="floraModalName"></h3>
+        <p class="flora-modal-sci" id="floraModalSci"></p>
+        <p class="flora-modal-desc" id="floraModalDesc"></p>
+        <ul class="flora-modal-traits" id="floraModalTraits"></ul>
+      </div>
+    </div>
   </div>
 
   <!-- ===== DÓNDE COMPRAR (red nacional) ===== -->
